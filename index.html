@@ -16,7 +16,7 @@
 
     <!-- Menú principal -->
     <ul class="menu">
-      <li><a href="index.html">Inicio</a></li>
+      <li><a href="index.html" class="active">Inicio</a></li>
       <li><a href="productos.html">Productos</a></li>
       <li><a href="blog.html">Blog</a></li>
       <li><a href="nosotros.html">Nosotros</a></li>
@@ -25,11 +25,7 @@
 
     <!-- Acciones a la derecha -->
     <div class="nav-actions">
-      <!-- Carrito -->
-      <a href="carrito.html" class="cart-link" title="Carrito">
-        🛒 <span id="cart-count" class="badge">0</span>
-      </a>
-      <!-- Usuario -->
+      <a href="carrito.html" class="cart-link" title="Carrito">🛒 <span id="cart-count" class="badge">0</span></a>
       <div class="user-menu">
         👤
         <div class="user-dropdown">
@@ -41,38 +37,51 @@
   </nav>
 </header>
 
+<main>
+  <!-- HERO -->
+  <section class="hero container">
+    <div class="hero-text">
+      <h1>Productos frescos, saludables y sostenibles 🍎🥬</h1>
+      <p>Compra frutas, verduras y orgánicos de calidad, directo a tu mesa.</p>
+      <a class="btn" href="productos.html">Ver catálogo</a>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero container">
-      <div class="hero-text">
-        <h1>Productos frescos, saludables y sostenibles 🍎🥬</h1>
-        <p>Compra frutas, verduras y orgánicos de calidad, directo a tu mesa.</p>
-        <a class="btn" href="productos.html">Ver catálogo</a>
-      </div>
-      <div class="hero-box">
-        <h2>🍓 ¡Oferta de la semana!</h2>
-        <p>10% de descuento en frutillas frescas</p>
-        <a class="btn-highlight" href="productos.html">Comprar ahora</a>
-      </div>
-    </section>
-
-    <!-- DESTACADOS (dinámicos desde catálogo) -->
-    <section class="container">
-      <h2>Destacados</h2>
-      <div id="destacados" class="grid"></div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>© 2025 HuertoHogar · Todos los derechos reservados</p>
+      <!-- info breve de ubicación (opcional) -->
+      <ul class="hero-bullets">
+        <li>📍 Entrega en RM</li>
+        <li>🚚 Despacho desde $2.000</li>
+        <li>🥗 Productores locales</li>
+      </ul>
     </div>
-  </footer>
 
-  <!-- Scripts: primero catálogo, luego lógica -->
-  <script src="js/data/products.js"></script>
-  <script src="js/main.js"></script>
+    <!-- MAPA -->
+    <div class="hero-map">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26739364.576789353!2d-109.42869514871785!3d-35.10464853035021!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5410425af2f%3A0x505e1131102b91d!2sChile!5e0!3m2!1ses-419!2scl!4v1757657401075!5m2!1ses-419!2scl"
+         width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <a href="nosotros.html#sedes" class="map-btn">Ver sedes</a>
+    </div>
+  </section>
+
+  <!-- DESTACADOS -->
+  <section class="container">
+    <h2>Destacados</h2>
+    <div id="destacados" class="grid"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <p>© 2025 HuertoHogar · Todos los derechos reservados</p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/data/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', ()=> {
+    if (typeof updateCartCount === 'function') updateCartCount();
+  });
+</script>
 </body>
 </html>
-

@@ -45,24 +45,60 @@ body {
 .menu a { color: #fff; text-decoration: none; padding: 6px 10px; border-radius: 6px; }
 .menu a:hover, .menu a.active { background: rgba(255,255,255,0.18); }
 
-/* ====== Hero ====== */
-.hero { display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 24px; padding: 24px 0; }
-.hero-text h1 { margin: 0 0 8px; font-size: clamp(22px, 3.2vw, 34px); }
-.hero-text p { margin: 0 0 16px; color: #444; }
-.hero-img { height: 220px; border-radius: 12px; background: linear-gradient(135deg,#2E8B57, #8bc34a); opacity: 0.9; }
-.hero-box {
-  flex: 1;
-  min-height: 220px;
-  background: linear-gradient(135deg,#2E8B57,#6AC17D);
-  color:#fff;
-  border-radius:12px;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
+/* ====== HERO con mapa ====== */
+.hero {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;   /* texto | mapa */
+  gap: 20px;
+  align-items: center;
+  margin-top: 18px;
 }
+
+.hero-text h1 { margin: 0 0 8px; }
+.hero-text p  { margin: 0 0 12px; color: var(--text-2); }
+.hero-text .btn { margin-bottom: 10px; }
+
+.hero-bullets { list-style: none; padding: 0; margin: 8px 0 0; color: var(--text-2); }
+.hero-bullets li { margin: 4px 0; }
+
+.hero-map {
+  min-height: 260px;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  background: #e9f5ee;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero-map iframe {
+  flex: 1;   /* el mapa ocupa todo el alto disponible */
+  border: 0;
+}
+
+.map-btn {
+  display: block;
+  text-align: center;
+  padding: 10px 0;
+  background: #2E8B57;   /* verde corporativo */
+  color: #fff;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 12px 12px;
+  transition: background 0.3s;
+}
+.map-btn:hover {
+  background: #246b45;   /* verde más oscuro al pasar */
+}
+
+
+/* Responsive */
+@media (max-width: 900px){
+  .hero { grid-template-columns: 1fr; }
+  .hero-map { min-height: 300px; }
+}
+
+
 .hero-box h2 { margin:0 0 8px; }
 /* ====== Cards / grid ====== */
 .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; margin: 16px 0 32px; }
@@ -70,7 +106,6 @@ body {
 .card h3 { margin: 8px 0 4px; font-size: 18px; }
 .card .precio { font-weight: 700; }
 .card-img { width: 100%; height: 150px; border-radius: 10px; object-fit: contain; object-position: center; background: #fff; display: block; margin: 0 auto; }
-.placeholder { background: repeating-linear-gradient(45deg, #e9e9e9, #e9e9e9 10px, #f2f2f2 10px, #f2f2f2 20px); }
 
 /* ====== Botones ====== */
 .btn, .btn-outline {
@@ -133,7 +168,6 @@ body {
 .menu { list-style:none; display:flex; gap:14px; margin:0; padding:0; }
 .nav-actions { display:flex; align-items:center; gap:16px; }
 .cart-link, .user-link { position:relative; text-decoration:none; font-size:20px; color:#fff; }
-.cart-link:hover, .user-link:hover { opacity:0.85; }
 
 /* Badge del carrito */
 .badge {
