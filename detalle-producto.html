@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Detalle de producto</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<header class="topbar">
+  <nav class="nav container">
+    <a href="index.html" class="logo" title="HuertoHogar">
+      <img src="img/logo.jpg" alt="HuertoHogar" style="height:70px;">
+    </a>
+    <ul class="menu">
+      <li><a href="index.html" class="active">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="carrito.html" class="cart-link">🛒 <span id="cart-count" class="badge">0</span></a>
+      <div class="user-menu">👤
+        <div class="user-dropdown">
+          <a href="login.html">Iniciar sesión</a>
+          <a href="registro.html">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <a href="productos.html" class="btn-outline btn-volver">← Volver</a>
+  <h1 id="prod-nombre"></h1>
+  <img id="prod-img" alt="" style="max-width:300px;">
+  <p id="prod-descripcion"></p>
+  <p class="precio" id="prod-precio"></p>
+  <button id="btn-add" class="btn">Añadir al carrito</button>
+</main>
+
+<footer class="footer"><div class="container"><p>© 2025 HuertoHogar</p></div></footer>
+
+<script src="js/data/products.js"></script>
+<script src="js/main.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", ()=>{
+  updateCartCount();
+  const params = new URLSearchParams(location.search);
+  const codigo = params.get("id");
+  const p = getProductos().find(x=>x.codigo===codigo);
+  if(p){
+    document.getElementById("prod-nombre").textContent = p.nombre;
+    document.getElementById("prod-precio").textContent = "$"+p.precio.toLocaleString("es-CL");
+    document.getElementById("prod-descripcion").textContent = p.descripcion;
+    document.getElementById("prod-img").src = p.imagen || "img/productos/placeholder.jpg";
+    document.getElementById("btn-add").onclick = ()=> agregarAlCarrito(codigo);
+  }
+});
+</script>
+</body>
+</html>

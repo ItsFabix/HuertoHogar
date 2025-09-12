@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Registro - HuertoHogar</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<header class="topbar">
+  <nav class="nav container">
+    <a href="index.html" class="logo" title="HuertoHogar">
+      <img src="img/logo.jpg" alt="HuertoHogar" style="height:70px;">
+    </a>
+    <ul class="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="productos.html" class="active">Productos</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="carrito.html" class="cart-link">🛒 <span id="cart-count" class="badge">0</span></a>
+      <div class="user-menu">👤
+        <div class="user-dropdown">
+          <a href="login.html">Iniciar sesión</a>
+          <a href="registro.html">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main class="container">
+  <h1>Registrarse</h1>
+  <form id="form-registro" class="panel">
+    <label>Nombre <input name="nombre" required><small class="error"></small></label>
+    <label>Apellidos <input name="apellidos" required><small class="error"></small></label>
+    <label>Correo <input type="email" name="correo" required><small class="error"></small></label>
+    <label>Contraseña <input type="password" name="pass" required><small class="error"></small></label>
+    <button type="submit" class="btn">Registrar</button>
+  </form>
+</main>
+
+<footer class="footer"><div class="container"><p>© 2025 HuertoHogar</p></div></footer>
+
+<script src="js/validations.js"></script>
+<script src="js/main.js"></script>
+<script>document.addEventListener("DOMContentLoaded", ()=>updateCartCount());</script>
+</body>
+</html>

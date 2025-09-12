@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>HuertoHogar - Nosotros</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<header class="topbar">
+  <nav class="nav container">
+    <a href="index.html" class="logo" title="HuertoHogar">
+      <img src="img/logo.jpg" alt="HuertoHogar" style="height:70px;">
+    </a>
+
+    <!-- Menú -->
+    <ul class="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="nosotros.html" class="active">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+
+    <!-- Acciones -->
+    <div class="nav-actions">
+      <a href="carrito.html" class="cart-link" title="Carrito">
+        🛒 <span id="cart-count" class="badge">0</span>
+      </a>
+      <div class="user-menu" title="Cuenta">
+        👤
+        <div class="user-dropdown">
+          <a href="login.html">Iniciar sesión</a>
+          <a href="registro.html">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<!-- Main -->
+<main class="container">
+  <h1>Sobre nosotros</h1>
+
+  <!-- Historia -->
+  <section class="panel">
+    <h2>Nuestra historia</h2>
+    <p>
+      HuertoHogar nació con un objetivo simple: acercar <b>frutas, verduras y productos lácteos</b> de calidad a las familias,
+      priorizando <b>frescura</b>, <b>origen local</b> y <b>precios justos</b>. Partimos como un pequeño emprendimiento familiar
+      y hoy contamos con una red de productores que comparten nuestros valores.
+    </p>
+  </section>
+
+  <!-- Misión / Visión -->
+  <section class="grid" style="gap:12px;">
+    <article class="panel">
+      <h2>Misión</h2>
+      <p>
+        Entregar productos frescos y saludables, con foco en experiencia simple: vitrina clara, compra rápida
+        y atención cercana.
+      </p>
+    </article>
+    <article class="panel">
+      <h2>Visión</h2>
+      <p>
+        Ser la tienda de confianza para el abastecimiento semanal de frutas, verduras y lácteos, promoviendo
+        hábitos alimenticios sanos y sustentables.
+      </p>
+    </article>
+  </section>
+
+  <!-- Valores -->
+  <section class="panel">
+    <h2>Nuestros valores</h2>
+    <ul>
+      <li><b>Frescura:</b> Rotación constante y control de stock para asegurar calidad.</li>
+      <li><b>Cercanía:</b> Comunicación clara y soporte amable antes y después de la compra.</li>
+      <li><b>Transparencia:</b> Precios visibles, descripciones honestas y reglas simples.</li>
+      <li><b>Sustentabilidad:</b> Preferencia por productores locales y reducción de desperdicio.</li>
+    </ul>
+  </section>
+
+  <!-- Atención y Despacho -->
+  <section class="panel">
+    <h2>Atención & Despacho</h2>
+    <div class="grid" style="gap:12px;">
+      <div>
+        <h3>Horarios</h3>
+        <p>Lunes a Viernes: 09:00–19:00<br/>Sábado: 09:00–14:00</p>
+      </div>
+      <div>
+        <h3>Medios de pago</h3>
+        <p>Débito/Crédito, Transferencia y efectivo en retiro en tienda.</p>
+      </div>
+      <div>
+        <h3>Despacho</h3>
+        <p>
+          Entrega a domicilio según disponibilidad. El costo y la cobertura se muestran al confirmar el pedido.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contáctanos rápido -->
+  <section class="panel">
+    <h2>Contáctanos</h2>
+    <p>
+      ¿Dudas con tu pedido o stock? Escríbenos desde la página <a href="contacto.html">Contacto</a> y te respondemos a la brevedad.
+    </p>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="container"><p>© 2025 HuertoHogar</p></div>
+</footer>
+
+<!-- Scripts -->
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", ()=> { 
+    if (typeof updateCartCount === "function") updateCartCount();
+  });
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Admin | HuertoHogar</title>
+  <link rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sb-brand"><span>🥬</span><span>HuertoHogar</span></div>
+    <ul class="sb-nav">
+      <li><a href="#view-dashboard" data-view-link class="active">🏠 Dashboard</a></li>
+      <li><a href="#view-productos" data-view-link>📦 Productos</a></li>
+      <li><a href="#view-usuarios" data-view-link>👤 Usuarios</a></li>
+    </ul>
+    <div class="sb-bottom">
+      <div class="sb-avatar"><span>👤</span><span id="sb-user">Administrador</span></div>
+      <button id="logout" class="btn-outline">Cerrar sesión</button>
+      <a class="btn-outline" href="../index.html">Volver a tienda</a>
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <section class="admin-content">
+    <div class="content-header">
+      <h1 id="admin-greeting">¡HOLA Administrador!</h1>
+    </div>
+
+    <div class="content-body">
+      <!-- Dashboard -->
+      <section id="view-dashboard" class="view active">
+        <div class="panel">
+          <h2>Resumen</h2>
+          <p>Bienvenido(a) al panel de administración. Usa el menú izquierdo para gestionar <b>Productos</b> y <b>Usuarios</b>.</p>
+        </div>
+      </section>
+
+      <!-- Productos -->
+      <section id="view-productos" class="view">
+        <div style="display:flex; gap:10px; align-items:center;">
+          <h2 style="margin:0;">Productos</h2>
+          <button id="btnNuevoProd" class="btn">Nuevo Producto</button>
+        </div>
+
+        <div id="lista-productos-admin" class="table" style="margin-top:10px;"></div>
+
+        <form id="form-prod" class="panel" hidden>
+          <h3 id="form-prod-title">Nuevo producto</h3>
+          <div class="grid2">
+            <label>Código* <input name="codigo" required minlength="3"/><small class="error"></small></label>
+            <label>Nombre* <input name="nombre" required maxlength="100"/><small class="error"></small></label>
+            <label>Precio* <input name="precio" type="number" step="0.01" min="0" required/><small class="error"></small></label>
+            <label>Stock* <input name="stock" type="number" step="1" min="0" required/><small class="error"></small></label>
+            <label>Stock crítico <input name="stockCritico" type="number" step="1" min="0"/><small class="error"></small></label>
+            <label>Categoría*
+              <select name="categoria" required>
+                <option value="">Seleccione</option>
+                <option>Frutas Frescas</option>
+                <option>Verduras Orgánicas</option>
+                <option>Productos Orgánicos</option>
+                <option>Productos Lácteos</option>
+              </select>
+              <small class="error"></small>
+            </label>
+            <label>Imagen <input name="imagen" placeholder="img/productos/FR001.jpg"/><small class="error"></small></label>
+            <label class="full">Descripción (máx 500)
+              <textarea name="descripcion" maxlength="500"></textarea><small class="error"></small>
+            </label>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn">Guardar</button>
+            <button type="button" id="cancel-prod" class="btn-outline">Cancelar</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Usuarios -->
+      <section id="view-usuarios" class="view">
+        <div style="display:flex; gap:10px; align-items:center;">
+          <h2 style="margin:0;">Usuarios</h2>
+          <button id="btnNuevoUsr" class="btn">Nuevo Usuario</button>
+        </div>
+
+        <div id="lista-usuarios" class="table" style="margin-top:10px;"></div>
+
+        <form id="form-usr" class="panel" hidden>
+          <h3 id="form-usr-title">Nuevo usuario</h3>
+          <div class="grid2">
+            <label>RUN* (sin puntos ni guion) <input name="run" placeholder="19011022K" required/><small class="error"></small></label>
+            <label>Correo* <input name="correo" type="email" required maxlength="100"/><small class="error"></small></label>
+            <label>Nombre* <input name="nombre" required maxlength="50"/><small class="error"></small></label>
+            <label>Apellidos* <input name="apellidos" required maxlength="100"/><small class="error"></small></label>
+            <label>Tipo*
+              <select name="tipo" required>
+                <option value="">Seleccione</option>
+                <option>Administrador</option>
+                <option>Cliente</option>
+                <option>Vendedor</option>
+              </select>
+              <small class="error"></small>
+            </label>
+            <label>Fecha Nacimiento <input name="nacimiento" type="date"/></label>
+            <label>Región* <select name="region" required></select><small class="error"></small></label>
+            <label>Comuna* <select name="comuna" required></select><small class="error"></small></label>
+            <label class="full">Dirección* <input name="direccion" required maxlength="300"/><small class="error"></small></label>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn">Guardar</button>
+            <button type="button" id="cancel-usr" class="btn-outline">Cancelar</button>
+          </div>
+        </form>
+      </section>
+    </div>
+  </section>
+</div>
+
+<!-- Scripts -->
+<script src="../js/data/products.js"></script>
+<script src="../js/data/regiones.js"></script>
+<script src="../js/admin.js"></script>
+</body>
+</html>

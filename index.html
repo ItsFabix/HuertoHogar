@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HuertoHogar - Inicio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+<header class="topbar">
+  <nav class="nav container">
+    <!-- Logo -->
+    <a href="index.html" class="logo" title="HuertoHogar">
+      <img src="img/logo.jpg" alt="HuertoHogar" style="height:70px;">
+    </a>
+
+    <!-- Menú principal -->
+    <ul class="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+
+    <!-- Acciones a la derecha -->
+    <div class="nav-actions">
+      <!-- Carrito -->
+      <a href="carrito.html" class="cart-link" title="Carrito">
+        🛒 <span id="cart-count" class="badge">0</span>
+      </a>
+      <!-- Usuario -->
+      <div class="user-menu">
+        👤
+        <div class="user-dropdown">
+          <a href="login.html">Iniciar sesión</a>
+          <a href="registro.html">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+  <main>
+    <!-- HERO -->
+    <section class="hero container">
+      <div class="hero-text">
+        <h1>Productos frescos, saludables y sostenibles 🍎🥬</h1>
+        <p>Compra frutas, verduras y orgánicos de calidad, directo a tu mesa.</p>
+        <a class="btn" href="productos.html">Ver catálogo</a>
+      </div>
+      <div class="hero-box">
+        <h2>🍓 ¡Oferta de la semana!</h2>
+        <p>10% de descuento en frutillas frescas</p>
+        <a class="btn-highlight" href="productos.html">Comprar ahora</a>
+      </div>
+    </section>
+
+    <!-- DESTACADOS (dinámicos desde catálogo) -->
+    <section class="container">
+      <h2>Destacados</h2>
+      <div id="destacados" class="grid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© 2025 HuertoHogar · Todos los derechos reservados</p>
+    </div>
+  </footer>
+
+  <!-- Scripts: primero catálogo, luego lógica -->
+  <script src="js/data/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
+

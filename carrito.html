@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>HuertoHogar - Carrito</title>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+<header class="topbar">
+  <nav class="nav container">
+    <a href="index.html" class="logo" title="HuertoHogar">
+      <img src="img/logo.jpg" alt="HuertoHogar" style="height:70px;">
+    </a>
+    <ul class="menu">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="productos.html">Productos</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="nosotros.html">Nosotros</a></li>
+      <li><a href="contacto.html">Contacto</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="carrito.html" class="cart-link" title="Carrito">
+        🛒 <span id="cart-count" class="badge">0</span>
+      </a>
+      <div class="user-menu">
+        👤
+        <div class="user-dropdown">
+          <a href="login.html">Iniciar sesión</a>
+          <a href="registro.html">Registrarse</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+
+  <main class="container">
+    <h1>Tu Carrito</h1>
+    <p id="carrito-vacio">Tu carrito está vacío.</p>
+    <div id="carrito"></div>
+    <p id="total" class="precio" style="margin-top:12px;"></p>
+
+    <div style="margin-top:12px;">
+      <a class="btn-outline" href="productos.html">Seguir comprando</a>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container"><p>© 2025 HuertoHogar</p></div>
+  </footer>
+
+  <!-- Script autónomo -->
+  <script>
+  (function(){
+    const KEY = "carrito";
+
+    function readCart(){
+      try { return JSON.parse(localStorage.getItem(KEY) || "[]") || []; }
+      catch(e){ return []; }
+    }
+    function writeCart(arr){
+      localStorage.setItem(KEY, JSON.stringify(Array.isArray(arr) ? arr : []));
+    }
+    function updateBadge(){
+      const el = document.getElementById("cart-count");
+      if(!el) return;
+      const total = readCart().reduce((s,i)=> s + (i.cantidad||0), 0);
+      el.textContent = total;
+    }
+
+    function render(){
+      const box   = document.getElementById("carrito");
+      const total = document.getElementById("total");
+      const empty = document.getElementById("carrito-vacio");
+      const cart  = readCart();
+
+      if(!cart.length){
+        box.innerHTML = "";
+        total.textContent = "";
+        empty.style.display = "block";
+        updateBadge();
+        return;
+      }
+      empty.style.display = "none";
+
+      box.innerHTML = cart.map((item, idx)=>`
+        <div class="row-cart">
+          <span>${item.nombre}</span>
+          <span>$${Number(item.precio).toLocaleString("es-CL")}</span>
+          <div class="qty">
+            <button data-dec="${idx}">–</button>
+            <b>${item.cantidad}</b>
+            <button data-inc="${idx}">+</button>
+          </div>
+          <span>$${Number(item.precio*item.cantidad).toLocaleString("es-CL")}</span>
+          <button data-del="${idx}">Eliminar</button>
+        </div>
+      `).join("");
+
+      // acciones
+      box.querySelectorAll("[data-inc]").forEach(b=>{
+        b.onclick = ()=>{
+          const i = +b.dataset.inc;
+          const c = readCart(); c[i].cantidad += 1; writeCart(c); render();
+        };
+      });
+      box.querySelectorAll("[data-dec]").forEach(b=>{
+        b.onclick = ()=>{
+          const i = +b.dataset.dec;
+          const c = readCart(); c[i].cantidad -= 1; if(c[i].cantidad<=0) c.splice(i,1); writeCart(c); render();
+        };
+      });
+      box.querySelectorAll("[data-del]").forEach(b=>{
+        b.onclick = ()=>{
+          const i = +b.dataset.del;
+          const c = readCart(); c.splice(i,1); writeCart(c); render();
+        };
+      });
+
+      const suma = cart.reduce((s,p)=> s + (Number(p.precio)||0)*(Number(p.cantidad)||0), 0);
+      total.textContent = "Total: $" + suma.toLocaleString("es-CL");
+      updateBadge();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", ()=>{ render(); updateBadge(); });
+    } else {
+      render(); updateBadge();
+    }
+  })();
+  </script>
+</body>
+</html>
