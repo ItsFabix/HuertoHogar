@@ -2,7 +2,7 @@
 const LS_KEY_PROD = "productosAdmin";
 const LS_KEY_CART = "carrito";
 
-// ===== Semilla de productos (desde js/data/products.js) =====
+// ===== Semilla de productos  =====
 function seedFromProductsFile() {
   const actual = JSON.parse(localStorage.getItem(LS_KEY_PROD) || "[]");
   if (actual && actual.length) return;
@@ -59,6 +59,27 @@ function agregarAlCarrito(codigo){
   updateCartCount();
 }
 
+// ===== Categorías =====
+const norm = s => (s || "").toString().trim().toLowerCase();
+
+function obtenerCategoriasDesde(data){
+  const map = new Map(); // clave normalizada -> etiqueta original
+  for (const p of data || []) {
+    const raw = (p.categoria || "").toString().trim();
+    const key = norm(raw);
+    if (key && !map.has(key)) map.set(key, raw);
+  }
+  return Array.from(map.values()).sort((a,b)=> a.localeCompare(b,'es'));
+}
+
+function poblarCategorias(data){
+  const sel = document.getElementById("fCategoria");
+  if (!sel) return;
+  const opts = obtenerCategoriasDesde(data)
+    .map(cat => `<option value="${cat}">${cat}</option>`).join("");
+  sel.innerHTML = `<option value="">Todas las categorías</option>${opts}`;
+}
+
 // ===== Render de catálogo con filtros =====
 function renderProductos(containerId="lista-productos"){
   const cont = document.getElementById(containerId);
@@ -66,6 +87,8 @@ function renderProductos(containerId="lista-productos"){
 
   const data = getProductos();
   if (!data.length){ cont.innerHTML = "<p>No hay productos.</p>"; return; }
+
+  poblarCategorias(data);
 
   const selCat = document.getElementById("fCategoria");
   const inpQ   = document.getElementById("fBuscar");
@@ -94,10 +117,19 @@ function renderProductos(containerId="lista-productos"){
 
   function aplicar(){
     const cat = selCat?.value || "";
-    const q = (inpQ?.value || "").toLowerCase().trim();
-    let lista = [...data];
-    if (cat) lista = lista.filter(p=> p.categoria === cat);
-    if (q)   lista = lista.filter(p=> p.nombre.toLowerCase().includes(q));
+    const q   = norm(inpQ?.value || "");
+    let lista = data.slice();               
+
+    if (cat) {
+      const ncat = norm(cat);
+      lista = lista.filter(p => norm(p.categoria) === ncat);
+    }
+    if (q) {
+      lista = lista.filter(p =>
+        norm(p.nombre).includes(q) ||
+        norm(p.descripcion).includes(q)
+      );
+    }
     pintar(lista);
   }
 
@@ -107,44 +139,44 @@ function renderProductos(containerId="lista-productos"){
 }
 
 // ===== Destacados del Home (primeros N del catálogo) =====
-function renderDestacados(containerId="destacados", cantidad=6){
-  const cont = document.getElementById(containerId);
-  if (!cont) return;
+  function renderDestacados(containerId="destacados", cantidad=6){
+    const cont = document.getElementById(containerId);
+    if (!cont) return;
 
-  const data = getProductos();
-  if (!data.length){
-    cont.innerHTML = "<p>No hay productos destacados.</p>";
-    return;
+    const data = getProductos();
+    if (!data.length){
+      cont.innerHTML = "<p>No hay productos destacados.</p>";
+      return;
+    }
+
+    const lista = data.slice(0, cantidad);
+    cont.innerHTML = "";
+    lista.forEach(p=>{
+      const card = document.createElement("article");
+      card.className = "card";
+      card.innerHTML = `
+        <img class="card-img" src="${p.imagen || 'img/productos/placeholder.jpg'}" alt="${p.nombre}">
+        <h3>${p.nombre}</h3>
+        <p class="precio">$${Number(p.precio).toLocaleString("es-CL")}</p>
+        <div class="acciones">
+          <a class="btn" href="detalle-producto.html?id=${encodeURIComponent(p.codigo)}">Ver</a>
+          <button class="btn" data-add="${p.codigo}">Añadir</button>
+        </div>
+      `;
+      cont.appendChild(card);
+    });
+
+    cont.querySelectorAll("[data-add]").forEach(b=>{
+      b.addEventListener("click", ()=> agregarAlCarrito(b.dataset.add));
+    });
   }
 
-  const lista = data.slice(0, cantidad);
-  cont.innerHTML = "";
-  lista.forEach(p=>{
-    const card = document.createElement("article");
-    card.className = "card";
-    card.innerHTML = `
-      <img class="card-img" src="${p.imagen || 'img/productos/placeholder.jpg'}" alt="${p.nombre}">
-      <h3>${p.nombre}</h3>
-      <p class="precio">$${Number(p.precio).toLocaleString("es-CL")}</p>
-      <div class="acciones">
-        <a class="btn" href="detalle-producto.html?id=${encodeURIComponent(p.codigo)}">Ver</a>
-        <button class="btn" data-add="${p.codigo}">Añadir</button>
-      </div>
-    `;
-    cont.appendChild(card);
+  // ===== Boot =====
+  document.addEventListener("DOMContentLoaded", ()=>{
+    seedFromProductsFile();
+
+    if (document.getElementById("lista-productos")) renderProductos("lista-productos");
+    if (document.getElementById("destacados")) renderDestacados("destacados", 6);
+
+    updateCartCount(); // siempre sincroniza el badge al cargar
   });
-
-  cont.querySelectorAll("[data-add]").forEach(b=>{
-    b.addEventListener("click", ()=> agregarAlCarrito(b.dataset.add));
-  });
-}
-
-// ===== Boot =====
-document.addEventListener("DOMContentLoaded", ()=>{
-  seedFromProductsFile();
-
-  if (document.getElementById("lista-productos")) renderProductos("lista-productos");
-  if (document.getElementById("destacados")) renderDestacados("destacados", 6);
-
-  updateCartCount(); // siempre sincroniza el badge al cargar
-});
