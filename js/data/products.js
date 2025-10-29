@@ -1,5 +1,4 @@
-// Catálogo oficial del Caso A 
-window.PRODUCTS = [
+export const PRODUCTS = [
   // Frutas Frescas
   { codigo:"FR001", nombre:"Manzanas Fuji", categoria:"Frutas Frescas",
     precio:1200, stock:150,
@@ -42,5 +41,5 @@ window.PRODUCTS = [
   { codigo:"PL001", nombre:"Leche Entera", categoria:"Productos Lácteos",
     precio:1500, stock:100,
     descripcion:"Leche entera fresca y nutritiva, fuente natural de calcio y proteínas, perfecta para desayunos, batidos y recetas caseras.",
-    imagen:"img/leche.png"}
+    imagen:"img/leche.png" }
 ];
